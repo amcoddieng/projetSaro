@@ -1,0 +1,6 @@
+
+produit = {
+    Id,
+    nom
+    
+}
