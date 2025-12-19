@@ -2,11 +2,11 @@ const Produit = require("../models/produit");
 
 // Create
 const saveProd = (req, res) => {
-    const { nom, id_sous_categorie } = req.body;
+    const { nom, chemin_image, id_sous_categorie } = req.body;
     if (!nom || !id_sous_categorie) {
         return res.status(400).json({ error: "Nom et id_sous_categorie requis !" });
     }
-    Produit.create(nom, id_sous_categorie, (err, result) => {
+    Produit.create(nom, chemin_image, id_sous_categorie, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ message: "Produit créé", id: result.insertId });
     });

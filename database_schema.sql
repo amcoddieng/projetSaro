@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS sous_categorie (
 CREATE TABLE IF NOT EXISTS produit (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
+    chemin_image VARCHAR(500),
     id_sous_categorie INT NOT NULL,
     FOREIGN KEY (id_sous_categorie) REFERENCES sous_categorie(id) ON DELETE CASCADE
 );

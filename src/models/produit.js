@@ -2,8 +2,8 @@ const db = require("../../config/database");
 
 const Produit = {
     // Create
-    create: (nom, id_sous_categorie, callback) => {
-        db.query("INSERT INTO produit (nom, id_sous_categorie) VALUES (?, ?)", [nom, id_sous_categorie], callback);
+    create: (nom, chemin_image, id_sous_categorie, callback) => {
+        db.query("INSERT INTO produit (nom, chemin_image, id_sous_categorie) VALUES (?, ?, ?)", [nom, chemin_image, id_sous_categorie], callback);
     },
 
     // Read all
@@ -22,8 +22,8 @@ const Produit = {
     },
 
     // Update
-    update: (id, nom, id_sous_categorie, callback) => {
-        db.query("UPDATE produit SET nom = ?, id_sous_categorie = ? WHERE id = ?", [nom, id_sous_categorie, id], callback);
+    update: (id, nom, chemin_image, id_sous_categorie, callback) => {
+        db.query("UPDATE produit SET nom = ?, chemin_image = ?, id_sous_categorie = ? WHERE id = ?", [nom, chemin_image, id_sous_categorie, id], callback);
     },
 
     // Delete
