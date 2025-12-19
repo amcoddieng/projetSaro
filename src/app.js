@@ -9,11 +9,13 @@ const categorieRoutes = require('./routes/categorieRoutes');
 const sousCategorieRoutes = require('./routes/sous_categorieRoutes');
 const produitRoutes = require('./routes/produitRoutes');
 const stockRoutes = require('./routes/stockRoutes');
+const prixRoutes = require('./routes/prixRoutes');
 
 app.use('/api/categories', categorieRoutes);
 app.use('/api/sous-categories', sousCategorieRoutes);
 app.use('/api/produits', produitRoutes);
 app.use('/api/stocks', stockRoutes);
+app.use('/api/prix', prixRoutes);
 
 // Error handling
 app.use((err, req, res, next) => {
