@@ -51,9 +51,24 @@ CREATE TABLE IF NOT EXISTS prix (
     FOREIGN KEY (id_stock) REFERENCES stock(id) ON DELETE CASCADE
 );
 
+-- Table des ventes
+CREATE TABLE IF NOT EXISTS vente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idproduit INT NOT NULL,
+    matricule_stock VARCHAR(6) NOT NULL,
+    datevente DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_update DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    quantite INT NOT NULL,
+    montant DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (idproduit) REFERENCES produit(id) ON DELETE CASCADE,
+    FOREIGN KEY (matricule_stock) REFERENCES stock(matricule_stock) ON DELETE CASCADE
+);
+
 -- Index pour améliorer les performances
 CREATE INDEX idx_sous_categorie_catalogue ON sous_categorie(id_catalogue);
 CREATE INDEX idx_produit_sous_categorie ON produit(id_sous_categorie);
 CREATE INDEX idx_stock_produit ON stock(idproduit);
 CREATE INDEX idx_prix_produit ON prix(id_produit);
 CREATE INDEX idx_prix_stock ON prix(id_stock);
+CREATE INDEX idx_vente_produit ON vente(idproduit);
+CREATE INDEX idx_vente_stock ON vente(matricule_stock);
