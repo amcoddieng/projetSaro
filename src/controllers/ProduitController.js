@@ -42,11 +42,11 @@ const getProduitsBySousCategorie = (req, res) => {
 // Update
 const updateProduit = (req, res) => {
     const { id } = req.params;
-    const { nom, id_sous_categorie } = req.body;
+    const { nom, chemin_image, id_sous_categorie } = req.body;
     if (!nom || !id_sous_categorie) {
         return res.status(400).json({ error: "Nom et id_sous_categorie requis !" });
     }
-    Produit.update(id, nom, id_sous_categorie, (err, result) => {
+    Produit.update(id, nom, chemin_image, id_sous_categorie, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         if (result.affectedRows === 0) return res.status(404).json({ error: "Produit non trouvé" });
         res.json({ message: "Produit mis à jour" });
