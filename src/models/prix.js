@@ -8,17 +8,17 @@ const Prix = {
 
     // Read all
     findAll: (callback) => {
-        db.query("SELECT p.*, pr.nom as produit_nom, s.nomstock as stock_nom FROM prix p JOIN produit pr ON p.id_produit = pr.id JOIN stock s ON p.id_stock = s.id", callback);
+        db.query("SELECT p.*, pr.nom as produit_nom, s.matricule_stock as matricule_stock FROM prix p JOIN produit pr ON p.id_produit = pr.id JOIN stock s ON p.id_stock = s.id", callback);
     },
 
     // Read by id
     findById: (id, callback) => {
-        db.query("SELECT p.*, pr.nom as produit_nom, s.nomstock as stock_nom FROM prix p JOIN produit pr ON p.id_produit = pr.id JOIN stock s ON p.id_stock = s.id WHERE p.id = ?", [id], callback);
+        db.query("SELECT p.*, pr.nom as produit_nom, s.matricule_stock as matricule_stock FROM prix p JOIN produit pr ON p.id_produit = pr.id JOIN stock s ON p.id_stock = s.id WHERE p.id = ?", [id], callback);
     },
 
     // Read by produit
     findByProduit: (id_produit, callback) => {
-        db.query("SELECT p.*, s.nomstock as stock_nom FROM prix p JOIN stock s ON p.id_stock = s.id WHERE p.id_produit = ?", [id_produit], callback);
+        db.query("SELECT p.*, s.matricule_stock as matricule_stock FROM prix p JOIN stock s ON p.id_stock = s.id WHERE p.id_produit = ?", [id_produit], callback);
     },
 
     // Read by stock

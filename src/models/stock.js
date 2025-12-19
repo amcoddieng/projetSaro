@@ -2,8 +2,8 @@ const db = require("../../config/database");
 
 const Stock = {
     // Create
-    create: (nomstock, idproduit, quantite, callback) => {
-        db.query("INSERT INTO stock (nomstock, idproduit, quantite) VALUES (?, ?, ?)", [nomstock, idproduit, quantite], callback);
+    create: (matricule_stock, idproduit, quantite, callback) => {
+        db.query("INSERT INTO stock (matricule_stock, idproduit, quantite) VALUES (?, ?, ?)", [matricule_stock, idproduit, quantite], callback);
     },
 
     // Read all
@@ -22,8 +22,16 @@ const Stock = {
     },
 
     // Update
-    update: (id, nomstock, idproduit, quantite, callback) => {
-        db.query("UPDATE stock SET nomstock = ?, idproduit = ?, quantite = ? WHERE id = ?", [nomstock, idproduit, quantite, id], callback);
+    update: (id, matricule_stock, idproduit, quantite, callback) => {
+        let query = "UPDATE stock SET idproduit = ?, quantite = ?";
+        let params = [idproduit, quantite];
+        if (matricule_stock) {
+            query += ", matricule_stock = ?";
+            params.unshift(matricule_stock);
+        }
+        query += " WHERE id = ?";
+        params.push(id);
+        db.query(query, params, callback);
     },
 
     // Delete

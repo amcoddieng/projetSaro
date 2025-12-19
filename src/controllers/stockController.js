@@ -1,14 +1,31 @@
 const Stock = require("../models/stock");
 
+// Function to generate a unique 6-character matricule
+const generateMatricule = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let matricule = '';
+    for (let i = 0; i < 6; i++) {
+        matricule += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return matricule;
+};
+
 // Create
 const createStock = (req, res) => {
-    const { nomstock, idproduit, quantite } = req.body;
-    if (!nomstock || !idproduit || quantite === undefined) {
-        return res.status(400).json({ error: "nomstock, idproduit et quantite requis !" });
+    const { idproduit, quantite } = req.body;
+    if (!idproduit || quantite === undefined) {
+        return res.status(400).json({ error: "idproduit et quantite requis !" });
     }
-    Stock.create(nomstock, idproduit, quantite, (err, result) => {
-        if (err) return res.status(500).json({ error: err.message });
-        res.status(201).json({ message: "Stock créé", id: result.insertId });
+    const matricule_stock = generateMatricule();
+    Stock.create(matricule_stock, idproduit, quantite, (err, result) => {
+        if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+                // If duplicate, try again
+                return createStock(req, res);
+            }
+            return res.status(500).json({ error: err.message });
+        }
+        res.status(201).json({ message: "Stock créé", id: result.insertId, matricule_stock });
     });
 };
 
